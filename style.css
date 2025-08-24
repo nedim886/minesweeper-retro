@@ -42,13 +42,13 @@ input[type="range"] {
   display: grid;
   margin-top: 20px;
   justify-content: center;
-  gap: 2px;
+  gap: 0; /* Kein Gap, damit Rahmen sichtbar bleibt */
 }
 
 .cell {
   width: 30px;
   height: 30px;
-  border: 1px solid #0f0;
+  border: 1px solid #0f0; /* grüner Rahmen für alle Zellen */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,12 +57,14 @@ input[type="range"] {
   user-select: none;
   background-color: #000;
   color: #0f0;
+  box-sizing: border-box; /* wichtig für konsistente Rahmen */
 }
 
 .revealed {
   background-color: #0f0;
   color: #000;
   font-weight: bold;
+  border: 1px solid #000; /* schwarzer Rahmen für klare vertikale Linien */
 }
 
 .cell[data-value="1"] { color: blue; }
