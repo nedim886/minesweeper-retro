@@ -272,7 +272,7 @@ function renderHighscores() {
     } else {
       entry.textContent = `${level.toUpperCase()}: –`;
     }
-    container.append;
+    container.appendChild(entry);
   });
 }
 
