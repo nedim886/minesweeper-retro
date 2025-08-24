@@ -42,7 +42,7 @@ input[type="range"] {
   display: grid;
   margin-top: 20px;
   justify-content: center;
-  gap: 0; /* Kein Gap, damit Rahmen sichtbar bleibt */
+  gap: 0;
 }
 
 .cell {
@@ -67,6 +67,12 @@ input[type="range"] {
   border: 1px solid #000;
 }
 
+.cell.flagged {
+  background-color: #222;
+  color: red;
+  font-weight: bold;
+}
+
 .cell[data-value="1"] { color: blue; }
 .cell[data-value="2"] { color: green; }
 .cell[data-value="3"] { color: red; }
@@ -77,8 +83,10 @@ input[type="range"] {
 .cell[data-value="8"] { color: gray; }
 
 .cell.help-marked {
+  background-color: #330;
   color: orange;
   font-weight: bold;
+  border: 1px dashed orange;
 }
 
 #highscore-menu,
@@ -92,6 +100,13 @@ input[type="range"] {
   text-align: left;
   font-size: 16px;
   line-height: 1.6;
+}
+
+#highscore {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #0f0;
+  font-weight: bold;
 }
 
 h1, h2 {
@@ -127,10 +142,17 @@ h1, h2 {
   margin-left: 15px;
 }
 
-/* ✅ Visueller Zustand bei aktivem Flag-Modus */
 #flag-mode-toggle.active {
   background-color: #0f0;
   color: #000;
   font-weight: bold;
   border-color: #fff;
+}
+
+/* ✅ Optional: Flag-Modus-Indikator */
+#flag-mode-indicator {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #f00;
+  font-weight: bold;
 }
