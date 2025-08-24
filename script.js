@@ -268,6 +268,12 @@ function setVolume() {
   const slider = document.getElementById("volume-slider");
   music.volume = parseFloat(slider.value);
 }
+function toggleFlagMode() {
+  flagMode = !flagMode;
+  const btn = document.getElementById("flag-mode-toggle");
+  btn.classList.toggle("active", flagMode);
+  vibrate(30);
+}
 
 // Globale Bindung für HTML-Buttons
 window.startGame = startGame;
