@@ -114,7 +114,7 @@ h1, h2 {
   font-family: monospace;
 }
 
-/* ✅ Vibration-Toggle */
+/* ✅ Vibration-Toggle (Englisch) */
 #vibration-setting {
   margin-top: 10px;
   font-size: 14px;
@@ -149,10 +149,44 @@ h1, h2 {
   border-color: #fff;
 }
 
-/* ✅ Optional: Flag-Modus-Indikator */
+/* ✅ Flag-Modus-Indikator */
 #flag-mode-indicator {
   margin-top: 5px;
   font-size: 14px;
   color: #f00;
   font-weight: bold;
+}
+
+/* ✅ Custom Mode Eingabefelder */
+#custom-settings {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #0f0;
+}
+
+#custom-settings label {
+  display: block;
+  margin: 8px 0;
+  font-family: monospace;
+}
+
+#custom-settings input[type="number"] {
+  background-color: #000;
+  color: #0f0;
+  border: 2px solid #0f0;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-family: monospace;
+  width: 80px;
+  text-align: center;
+}
+
+#custom-settings input[type="number"]:focus {
+  outline: none;
+  border-color: #fff;
+  background-color: #111;
+}
+
+#custom-settings button {
+  margin-top: 10px;
 }
