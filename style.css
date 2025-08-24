@@ -48,7 +48,7 @@ input[type="range"] {
 .cell {
   width: 30px;
   height: 30px;
-  border: 1px solid #0f0; /* grüner Rahmen für alle Zellen */
+  border: 1px solid #0f0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,14 +57,14 @@ input[type="range"] {
   user-select: none;
   background-color: #000;
   color: #0f0;
-  box-sizing: border-box; /* wichtig für konsistente Rahmen */
+  box-sizing: border-box;
 }
 
 .revealed {
   background-color: #0f0;
   color: #000;
   font-weight: bold;
-  border: 1px solid #000; /* schwarzer Rahmen für klare vertikale Linien */
+  border: 1px solid #000;
 }
 
 .cell[data-value="1"] { color: blue; }
@@ -99,7 +99,7 @@ h1, h2 {
   font-family: monospace;
 }
 
-/* ✅ Ergänzungen für Vibration-Toggle */
+/* ✅ Vibration-Toggle */
 #vibration-setting {
   margin-top: 10px;
   font-size: 14px;
@@ -115,9 +115,22 @@ h1, h2 {
 #vibration-setting input[type="checkbox"] {
   transform: scale(1.2);
   margin-right: 6px;
-  accent-color: #0f0; /* grüne Checkbox */
+  accent-color: #0f0;
 }
 
 #vibration-setting label:hover {
   color: #fff;
+}
+
+/* ✅ Flag-Modus-Button */
+#flag-mode-toggle {
+  margin-left: 15px;
+}
+
+/* ✅ Visueller Zustand bei aktivem Flag-Modus */
+#flag-mode-toggle.active {
+  background-color: #0f0;
+  color: #000;
+  font-weight: bold;
+  border-color: #fff;
 }
