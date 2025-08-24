@@ -124,11 +124,30 @@ function generateGrid() {
         e.preventDefault();
         toggleFlag(x, y);
       };
+      enableTouchFlagging(cell, x, y); // 📱 Mobile Support
       gridElement.appendChild(cell);
     }
   }
 
   updateHighscoreDisplay();
+}
+
+function enableTouchFlagging(cell, x, y) {
+  let touchTimer;
+
+  cell.addEventListener("touchstart", () => {
+    touchTimer = setTimeout(() => {
+      toggleFlag(x, y);
+    }, 500);
+  });
+
+  cell.addEventListener("touchend", () => {
+    clearTimeout(touchTimer);
+  });
+
+  cell.addEventListener("touchmove", () => {
+    clearTimeout(touchTimer);
+  });
 }
 
 function revealCell(x, y) {
@@ -240,7 +259,7 @@ function renderHighscores() {
     } else {
       entry.textContent = `${level.toUpperCase()}: –`;
     }
-    container.appendChild(entry);
+    container.append;
   });
 }
 
