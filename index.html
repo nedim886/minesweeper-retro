@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RetroSweeper</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -73,7 +74,7 @@
     </label>
     <br />
 
-    <!-- ✅ Vibration-Toggle (Englisch) -->
+    <!-- ✅ Vibration-Toggle -->
     <div id="vibration-setting">
       <label>
         <input type="checkbox" id="vibration-toggle" checked onchange="toggleVibrationSetting()" />
@@ -107,6 +108,9 @@
     <div id="grid"></div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- ✅ Debug-Test-Button (optional) -->
+  <!-- <button onclick="console.log('Test button clicked')">Test</button> -->
+
+  <script src="script.js" type="text/javascript"></script>
 </body>
 </html>
