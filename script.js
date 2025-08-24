@@ -124,3 +124,15 @@ function toggleFlagMode() {
 function exitGame() {
   App.exitApp();
 }
+// 🌐 Globale Bindung für HTML-Buttons
+window.startGame = startGame;
+window.showDifficulty = showDifficulty;
+window.backToMain = backToMain;
+window.exitApp = exitApp;
+window.showHighscores = showHighscores;
+window.helpReveal = helpReveal;
+window.showSettings = showSettings;
+window.toggleMusic = toggleMusic;
+window.setVolume = setVolume;
+window.toggleVibrationSetting = toggleVibrationSetting;
+window.toggleFlagMode = toggleFlagMode;
