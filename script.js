@@ -134,20 +134,33 @@ function generateGrid() {
 
 function enableTouchFlagging(cell, x, y) {
   let touchTimer;
+  let touchMoved = false;
 
-  cell.addEventListener("touchstart", () => {
+  const startHandler = (e) => {
+    touchMoved = false;
+    e.preventDefault();
     touchTimer = setTimeout(() => {
       toggleFlag(x, y);
+      touchTimer = null;
     }, 500);
-  });
+  };
 
-  cell.addEventListener("touchend", () => {
+  const moveHandler = () => {
+    touchMoved = true;
     clearTimeout(touchTimer);
-  });
+  };
 
-  cell.addEventListener("touchmove", () => {
+  const endHandler = (e) => {
     clearTimeout(touchTimer);
-  });
+    if (!touchMoved && touchTimer !== null) {
+      revealCell(x, y);
+    }
+  };
+
+  cell.addEventListener("touchstart", startHandler, { passive: false });
+  cell.addEventListener("touchmove", moveHandler, { passive: false });
+  cell.addEventListener("touchend", endHandler, { passive: false });
+  cell.addEventListener("touchcancel", () => clearTimeout(touchTimer));
 }
 
 function revealCell(x, y) {
