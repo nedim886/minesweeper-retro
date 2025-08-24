@@ -28,6 +28,11 @@ button:hover {
   font-size: 18px;
 }
 
+#bomb-count {
+  margin-left: 15px;
+  font-weight: bold;
+}
+
 #grid {
   display: grid;
   margin-top: 20px;
@@ -59,4 +64,25 @@ button:hover {
 .cell[data-value="1"] { color: blue; }
 .cell[data-value="2"] { color: green; }
 .cell[data-value="3"] { color: red; }
-.cell
+.cell[data-value="4"] { color: darkblue; }
+.cell[data-value="5"] { color: darkred; }
+.cell[data-value="6"] { color: teal; }
+.cell[data-value="7"] { color: purple; }
+.cell[data-value="8"] { color: gray; }
+
+#highscore-menu {
+  margin-top: 20px;
+}
+
+#highscore-list {
+  margin: 10px auto;
+  max-width: 300px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2 {
+  color: #0f0;
+  font-family: monospace;
+}
