@@ -6,7 +6,8 @@ let gameOver = false;
 let timerInterval;
 let seconds = 0;
 let currentDifficulty = "";
-let vibrationEnabled = true; // ✅ Vibration-Toggle
+let vibrationEnabled = true;
+let flagMode = false;
 
 // 🎵 Musiksteuerung
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,6 +33,12 @@ function toggleVibrationSetting() {
   vibrationEnabled = toggle.checked;
 }
 
+function toggleFlagMode() {
+  flagMode = !flagMode;
+  const btn = document.getElementById("flag-mode-toggle");
+  btn.textContent = flagMode ? "🚩 Flag Mode: ON" : "🚩 Flag Mode: OFF";
+}
+
 function showDifficulty() {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("difficulty-menu").style.display = "block";
@@ -47,7 +54,6 @@ function showSettings() {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("settings-menu").style.display = "block";
 
-  // ✅ Nur anzeigen, wenn Gerät Vibration unterstützt
   if ("vibrate" in navigator) {
     document.getElementById("vibration-setting").style.display = "block";
   }
@@ -135,11 +141,21 @@ function generateGrid() {
       cell.className = "cell";
       cell.dataset.x = x;
       cell.dataset.y = y;
-      cell.onclick = () => revealCell(x, y);
+
+      // ✅ Flag-Modus oder normales Aufdecken
+      cell.onclick = () => {
+        if (flagMode) {
+          toggleFlag(x, y);
+        } else {
+          revealCell(x, y);
+        }
+      };
+
       cell.oncontextmenu = (e) => {
         e.preventDefault();
         toggleFlag(x, y);
       };
+
       enableTouchFlagging(cell, x, y);
       gridElement.appendChild(cell);
     }
@@ -154,10 +170,10 @@ function enableTouchFlagging(cell, x, y) {
 
   const startHandler = (e) => {
     touchMoved = false;
-    e.preventDefault(); // verhindert Scrollen
+    e.preventDefault();
     touchTimer = setTimeout(() => {
       toggleFlag(x, y);
-      vibrate([50]); // optionales Feedback
+      vibrate([50]);
       touchTimer = null;
     }, 500);
   };
@@ -170,7 +186,7 @@ function enableTouchFlagging(cell, x, y) {
   const endHandler = (e) => {
     clearTimeout(touchTimer);
     if (!touchMoved && touchTimer !== null) {
-      revealCell(x, y); // kurzer Tap = Zelle aufdecken
+      revealCell(x, y);
     }
   };
 
@@ -180,12 +196,10 @@ function enableTouchFlagging(cell, x, y) {
   cell.addEventListener("touchcancel", () => clearTimeout(touchTimer));
 }
 
-}
-
 function revealCell(x, y) {
   if (gameOver || revealed[y][x] || flagged[y][x]) return;
 
-  vibrate(50); // ✅ kurzes Feedback
+  vibrate(50);
 
   revealed[y][x] = true;
   const index = y * gridSize + x;
@@ -258,7 +272,7 @@ function endGame(won) {
   clearInterval(timerInterval);
 
   if (!won) {
-    vibrate([100, 100, 500]); // ✅ längeres Feedback bei Bomben
+    vibrate([100, 100, 500]);
   }
 
   if (won) {
@@ -325,4 +339,5 @@ window.helpReveal = helpReveal;
 window.showSettings = showSettings;
 window.toggleMusic = toggleMusic;
 window.setVolume = setVolume;
-window.toggleVibrationSetting = toggleVibrationSetting; // ✅ neu
+window.toggleVibrationSetting = toggleVibrationSetting;
+window.toggleFlagMode = toggleFlagMode;
