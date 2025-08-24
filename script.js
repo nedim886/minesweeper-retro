@@ -117,6 +117,7 @@ function revealCell(x, y) {
   revealed[y][x] = true;
   const index = y * gridSize + x;
   const cell = document.getElementsByClassName("cell")[index];
+  cell.classList.add("revealed");
 
   if (grid[y][x] === "💣") {
     cell.textContent = "💣";
@@ -124,12 +125,17 @@ function revealCell(x, y) {
     endGame(false);
   } else {
     cell.textContent = grid[y][x] === 0 ? "" : grid[y][x];
-    cell.style.backgroundColor = "#0f0";
     if (grid[y][x] === 0) {
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
-          if (grid[y + dy]?.[x + dx] !== undefined) {
-            revealCell(x + dx, y + dy);
+          let nx = x + dx;
+          let ny = y + dy;
+          if (
+            nx >= 0 && nx < gridSize &&
+            ny >= 0 && ny < gridSize &&
+            !revealed[ny][nx]
+          ) {
+            revealCell(nx, ny);
           }
         }
       }
@@ -197,3 +203,10 @@ function renderHighscores() {
     container.appendChild(entry);
   });
 }
+
+// 🔗 Globale Funktionen für HTML-Buttons
+window.startGame = startGame;
+window.showDifficulty = showDifficulty;
+window.backToMain = backToMain;
+window.exitApp = exitApp;
+window.showHighscores = showHighscores;
