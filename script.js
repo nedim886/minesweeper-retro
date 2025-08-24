@@ -104,7 +104,7 @@ function generateGrid() {
         e.preventDefault();
         toggleFlag(x, y);
       };
-      gridElement.appendChild(cell);
+      document.getElementById("grid").appendChild(cell);
     }
   }
 
