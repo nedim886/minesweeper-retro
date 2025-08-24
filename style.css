@@ -47,3 +47,16 @@ button:hover {
   user-select: none;
   background-color: #000;
   color: #0f0;
+}
+
+.revealed {
+  background-color: #0f0;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Farbige Zahlen */
+.cell[data-value="1"] { color: blue; }
+.cell[data-value="2"] { color: green; }
+.cell[data-value="3"] { color: red; }
+.cell
