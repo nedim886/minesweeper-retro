@@ -1,6 +1,3 @@
-import { Haptics } from '@capacitor/haptics';
-import { App } from '@capacitor/app';
-
 let gridSize, mineCount;
 let grid = [];
 let revealed = [];
@@ -26,15 +23,15 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 function vibrate(pattern) {
-  if (vibrationEnabled) {
-    if (typeof pattern === "number") {
-      Haptics.vibrate({ duration: pattern });
-    } else if (Array.isArray(pattern)) {
-      // Simuliere Muster durch mehrere kurze Vibrationen
-      pattern.forEach((p, i) => {
-        setTimeout(() => Haptics.vibrate({ duration: p }), i * 200);
-      });
-    }
+  if (!vibrationEnabled || !window.Capacitor?.Plugins?.Haptics) return;
+  const haptics = window.Capacitor.Plugins.Haptics;
+
+  if (typeof pattern === "number") {
+    haptics.vibrate({ duration: pattern });
+  } else if (Array.isArray(pattern)) {
+    pattern.forEach((p, i) => {
+      setTimeout(() => haptics.vibrate({ duration: p }), i * 200);
+    });
   }
 }
 
@@ -64,7 +61,6 @@ function showHighscores() {
 function showSettings() {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("settings-menu").style.display = "block";
-
   document.getElementById("vibration-setting").style.display = "block";
 }
 
@@ -78,7 +74,12 @@ function backToMain() {
 }
 
 function exitApp() {
-  App.exitApp();
+  const app = window.Capacitor?.Plugins?.App;
+  if (app) {
+    app.exitApp();
+  } else {
+    alert("Exit not supported in this environment.");
+  }
 }
 function startGame(difficulty) {
   currentDifficulty = difficulty;
@@ -202,6 +203,43 @@ function enableTouchFlagging(cell, x, y) {
   cell.addEventListener("touchend", endHandler, { passive: false });
   cell.addEventListener("touchcancel", () => clearTimeout(touchTimer));
 }
+function revealCell(x, y) {
+  if (gameOver || revealed[y][x] || flagged[y][x]) return;
+
+  vibrate(50);
+
+  revealed[y][x] = true;
+  const index = y * gridSize + x;
+  const cell = document.getElementsByClassName("cell")[index];
+  cell.classList.add("revealed");
+
+  if (grid[y][x] === "💣") {
+    cell.textContent = "💣";
+    cell.style.backgroundColor = "red";
+    endGame(false);
+  } else {
+    const value = grid[y][x];
+    cell.textContent = value === 0 ? "" : value;
+    cell.setAttribute("data-value", value);
+    if (value === 0) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          let nx = x + dx;
+          let ny = y + dy;
+          if (
+            nx >= 0 && nx < gridSize &&
+            ny >= 0 && ny < gridSize &&
+            !revealed[ny][nx]
+          ) {
+            revealCell(nx, ny);
+          }
+        }
+      }
+    }
+    checkWin();
+  }
+}
+
 function toggleFlag(x, y) {
   if (revealed[y][x]) return;
   const index = y * gridSize + x;
@@ -286,7 +324,7 @@ function renderHighscores() {
   });
 }
 
-// 🎛 Settings-Funktionen
+// 🎛 Musiksteuerung
 function toggleMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
