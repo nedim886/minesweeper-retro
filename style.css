@@ -23,6 +23,11 @@ button:hover {
   color: #000;
 }
 
+input[type="range"] {
+  width: 200px;
+  margin-top: 10px;
+}
+
 #hud {
   margin-bottom: 10px;
   font-size: 18px;
@@ -74,7 +79,7 @@ button:hover {
   font-weight: bold;
 }
 
-#highscore-menu {
+#highscore-menu, #settings-menu {
   margin-top: 20px;
 }
 
