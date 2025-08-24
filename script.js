@@ -37,7 +37,9 @@ function toggleFlagMode() {
   flagMode = !flagMode;
   const btn = document.getElementById("flag-mode-toggle");
   btn.textContent = flagMode ? "🚩 Flag Mode: ON" : "🚩 Flag Mode: OFF";
+  btn.classList.toggle("active", flagMode); // ✅ visuelle Klasse setzen/entfernen
 }
+
 
 function showDifficulty() {
   document.getElementById("main-menu").style.display = "none";
