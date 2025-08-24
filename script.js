@@ -140,6 +140,12 @@ function startTimer() {
     document.getElementById("timer").textContent = `Time: ${seconds}s`;
   }, 1000);
 }
+function showDifficulty() {
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("difficulty-menu").style.display = "block";
+  document.getElementById("custom-settings").style.display = "none";
+}
+
 function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
