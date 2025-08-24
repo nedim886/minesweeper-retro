@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Minesweeper Retro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="main-menu">
+    <h1>Minesweeper</h1>
+    <button onclick="showDifficulty()">Play</button>
+    <button onclick="exitApp()">Exit</button>
+  </div>
+
+  <div id="difficulty-menu" style="display:none;">
+    <h2>Schwierigkeitsgrad</h2>
+    <button onclick="startGame('easy')">Leicht</button>
+    <button onclick="startGame('medium')">Mittel</button>
+    <button onclick="startGame('hard')">Schwer</button>
+    <button onclick="backToMain()">Zurück</button>
+  </div>
+
+  <div id="game-container" style="display:none;">
+    <div id="hud">
+      <span id="timer">Zeit: 0s</span>
+      <span id="highscore">Highscore: 0</span>
+      <button onclick="backToMain()">Exit</button>
+    </div>
+    <div id="grid"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
