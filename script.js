@@ -130,8 +130,4 @@ function revealCell(x, y) {
     cell.setAttribute("data-value", value);
     if (value === 0) {
       for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
-          let nx = x + dx;
-          let ny = y + dy;
-          if (
-            nx >= 0 &&
+        for (let dx = -1;
