@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Minesweeper Retro</title>
@@ -17,39 +17,39 @@
   </div>
 
   <div id="difficulty-menu" style="display:none;">
-    <h2>Schwierigkeitsgrad</h2>
-    <button onclick="startGame('easy')">Leicht</button>
-    <button onclick="startGame('medium')">Mittel</button>
-    <button onclick="startGame('hard')">Schwer</button>
-    <button onclick="backToMain()">Zurück</button>
+    <h2>Select Difficulty</h2>
+    <button onclick="startGame('easy')">Easy</button>
+    <button onclick="startGame('medium')">Medium</button>
+    <button onclick="startGame('hard')">Hard</button>
+    <button onclick="backToMain()">Back</button>
   </div>
 
   <div id="highscore-menu" style="display:none;">
     <h2>Highscores</h2>
     <div id="highscore-list"></div>
-    <button onclick="backToMain()">Zurück</button>
+    <button onclick="backToMain()">Back</button>
   </div>
 
   <div id="settings-menu" style="display:none;">
-    <h2>🎛 Einstellungen</h2>
+    <h2>🎛 Settings</h2>
     <label>
       <input type="checkbox" id="music-toggle" checked onchange="toggleMusic()" />
-      Musik an/aus
+      Music On/Off
     </label>
     <br />
     <label>
-      Lautstärke:
+      Volume:
       <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.3" onchange="setVolume()" />
     </label>
     <br />
-    <button onclick="backToMain()">Zurück</button>
+    <button onclick="backToMain()">Back</button>
   </div>
 
   <div id="game-container" style="display:none;">
     <div id="hud">
-      <span id="timer">Zeit: 0s</span>
+      <span id="timer">Time: 0s</span>
       <span id="highscore">Highscore: –</span>
-      <span id="bomb-count">Bomben: –</span>
+      <span id="bomb-count">Bombs: –</span>
       <button onclick="helpReveal()">HELP</button>
       <button onclick="backToMain()">Exit</button>
     </div>
