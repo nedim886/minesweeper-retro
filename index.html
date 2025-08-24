@@ -9,6 +9,7 @@
   <div id="main-menu">
     <h1>Minesweeper</h1>
     <button onclick="showDifficulty()">Play</button>
+    <button onclick="showHighscores()">Highscores</button>
     <button onclick="exitApp()">Exit</button>
   </div>
 
@@ -20,10 +21,16 @@
     <button onclick="backToMain()">Zurück</button>
   </div>
 
+  <div id="highscore-menu" style="display:none;">
+    <h2>Highscores</h2>
+    <div id="highscore-list"></div>
+    <button onclick="backToMain()">Zurück</button>
+  </div>
+
   <div id="game-container" style="display:none;">
     <div id="hud">
       <span id="timer">Zeit: 0s</span>
-      <span id="highscore">Highscore: 0</span>
+      <span id="highscore">Highscore: 0s</span>
       <button onclick="backToMain()">Exit</button>
     </div>
     <div id="grid"></div>
