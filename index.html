@@ -1,8 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RetroSweeper</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,17 +12,10 @@
   <!-- 🕹️ Hauptmenü -->
   <div id="main-menu">
     <h1>RetroSweeper</h1>
-
-    <!-- 💰 Coin-Anzeige -->
-    <div id="coin-display">Coins: –</div>
-
     <button onclick="showDifficulty()">Play</button>
     <button onclick="showHighscores()">Highscores</button>
     <button onclick="showSettings()">Settings</button>
     <button onclick="exitApp()">Exit</button>
-
-    <!-- 📺 Watch Ad Button -->
-    <button onclick="watchAd()">Watch Ad</button>
   </div>
 
   <!-- 🎮 Schwierigkeitsauswahl -->
@@ -74,7 +67,7 @@
     </label>
     <br />
 
-    <!-- ✅ Vibration-Toggle -->
+    <!-- ✅ Vibration-Toggle (Englisch) -->
     <div id="vibration-setting">
       <label>
         <input type="checkbox" id="vibration-toggle" checked onchange="toggleVibrationSetting()" />
@@ -92,24 +85,18 @@
       <span id="timer">Time: 0s</span>
       <span id="highscore">Highscore: –</span>
       <span id="bomb-count">Bombs: –</span>
-      <span id="coin-hud">Coins: –</span>
 
       <!-- 🚩 Flag-Modus -->
       <button id="flag-mode-toggle" onclick="toggleFlagMode()">🚩</button>
       <span id="flag-mode-indicator"></span>
 
-      <!-- 🆘 HELP mit integriertem Hinweis -->
-      <button onclick="helpReveal()" id="help-button">
-        HELP<br />
-        <span class="help-cost">–1 coin</span>
-      </button>
-
+      <button onclick="helpReveal()">HELP</button>
       <button onclick="backToMain()">Exit</button>
     </div>
 
     <div id="grid"></div>
   </div>
 
-  <script src="script.js" type="text/javascript"></script>
+  <script src="script.js"></script>
 </body>
 </html>
