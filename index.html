@@ -11,10 +11,17 @@
   <!-- 🕹️ Hauptmenü -->
   <div id="main-menu">
     <h1>RetroSweeper</h1>
+
+    <!-- 💰 Coin-Anzeige -->
+    <div id="coin-display">Coins: –</div>
+
     <button onclick="showDifficulty()">Play</button>
     <button onclick="showHighscores()">Highscores</button>
     <button onclick="showSettings()">Settings</button>
     <button onclick="exitApp()">Exit</button>
+
+    <!-- 📺 Watch Ad Button -->
+    <button onclick="watchAd()">Watch Ad</button>
   </div>
 
   <!-- 🎮 Schwierigkeitsauswahl -->
@@ -84,12 +91,16 @@
       <span id="timer">Time: 0s</span>
       <span id="highscore">Highscore: –</span>
       <span id="bomb-count">Bombs: –</span>
+      <span id="coin-hud">Coins: –</span>
 
       <!-- 🚩 Flag-Modus -->
       <button id="flag-mode-toggle" onclick="toggleFlagMode()">🚩</button>
       <span id="flag-mode-indicator"></span>
 
+      <!-- 🆘 HELP mit Hinweis -->
       <button onclick="helpReveal()">HELP</button>
+      <span style="font-size: 12px; color: #f00;">–1 coin</span>
+
       <button onclick="backToMain()">Exit</button>
     </div>
 
