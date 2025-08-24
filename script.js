@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Nur Hauptmenü anzeigen
+  document.getElementById("main-menu").style.display = "block";
+  document.getElementById("difficulty-menu").style.display = "none";
+  document.getElementById("highscore-menu").style.display = "none";
+  document.getElementById("settings-menu").style.display = "none";
+  document.getElementById("game-container").style.display = "none";
+});
+
 let gridSize, mineCount;
 let grid = [];
 let revealed = [];
