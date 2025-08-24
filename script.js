@@ -11,6 +11,8 @@ let flagMode = false;
 let coins = 0; // 💰 Coinsystem
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ Script loaded");
+
   // Menüstruktur
   document.getElementById("main-menu").style.display = "block";
   document.getElementById("difficulty-menu").style.display = "none";
@@ -23,17 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   if (music) music.volume = 0.3;
 
-  // 💰 Coins initialisieren + tägliche Belohnung
+  // Coinsystem
   const savedCoins = localStorage.getItem("retro_coins");
   const lastClaim = localStorage.getItem("retro_last_claim");
+  const today = new Date().toDateString();
 
   if (savedCoins === null) {
     coins = 10;
     localStorage.setItem("retro_coins", coins);
-    localStorage.setItem("retro_last_claim", new Date().toDateString());
+    localStorage.setItem("retro_last_claim", today);
   } else {
     coins = parseInt(savedCoins);
-    const today = new Date().toDateString();
     if (lastClaim !== today) {
       coins += 5;
       localStorage.setItem("retro_last_claim", today);
@@ -51,7 +53,6 @@ document.addEventListener("click", () => {
   }
 }, { once: true });
 
-// 💰 Coin-Anzeige aktualisieren
 function updateCoinDisplay() {
   const menuDisplay = document.getElementById("coin-display");
   const hudDisplay = document.getElementById("coin-hud");
@@ -100,7 +101,7 @@ function startGame(difficulty) {
 
   document.getElementById("game-container").style.display = "block";
   document.getElementById("bomb-count").textContent = `Bombs: ${mineCount}`;
-  updateCoinDisplay(); // 💰 Coins aktualisieren beim Spielstart
+  updateCoinDisplay();
   startTimer();
   generateGrid();
 }
@@ -130,6 +131,7 @@ function helpReveal() {
     }
   }
 }
+
 function startTimer() {
   seconds = 0;
   document.getElementById("timer").textContent = "Time: 0s";
@@ -138,7 +140,6 @@ function startTimer() {
     document.getElementById("timer").textContent = `Time: ${seconds}s`;
   }, 1000);
 }
-
 function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
@@ -198,7 +199,7 @@ function generateGrid() {
   }
 
   updateHighscoreDisplay();
-  updateCoinDisplay(); // 💰 Coins auch nach Grid-Start aktualisieren
+  updateCoinDisplay();
 }
 
 function revealCell(x, y) {
@@ -322,11 +323,12 @@ window.showDifficulty = showDifficulty;
 window.backToMain = backToMain;
 window.exitApp = exitApp;
 window.showHighscores = showHighscores;
+window.renderHighscores = renderHighscores;
 window.helpReveal = helpReveal;
+window.watchAd = watchAd;
 window.showSettings = showSettings;
 window.toggleMusic = toggleMusic;
 window.setVolume = setVolume;
 window.toggleVibrationSetting = toggleVibrationSetting;
 window.toggleFlagMode = toggleFlagMode;
 window.showCustomSettings = showCustomSettings;
-window.watchAd = watchAd;
