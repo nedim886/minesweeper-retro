@@ -64,6 +64,13 @@ function watchAd() {
   updateCoinDisplay();
   alert("Thanks for watching! You earned 5 coins.");
 }
+
+function toggleFlagMode() {
+  flagMode = !flagMode;
+  const btn = document.getElementById("flag-mode-toggle");
+  btn.classList.toggle("active", flagMode);
+  vibrate(30);
+}
 function startGame(difficulty) {
   currentDifficulty = difficulty;
   document.getElementById("difficulty-menu").style.display = "none";
@@ -173,7 +180,6 @@ function generateGrid() {
 
   updateHighscoreDisplay();
 }
-
 function helpReveal() {
   if (gameOver) return;
 
@@ -199,6 +205,16 @@ function helpReveal() {
     }
   }
 }
+
+function toggleFlag(x, y) {
+  if (revealed[y][x]) return;
+  const index = y * gridSize + x;
+  const cell = document.getElementsByClassName("cell")[index];
+  flagged[y][x] = !flagged[y][x];
+  cell.textContent = flagged[y][x] ? "🚩" : "";
+  vibrate(50);
+}
+
 function checkWin() {
   let safeCells = gridSize * gridSize - mineCount;
   let revealedCount = revealed.flat().filter(Boolean).length;
@@ -268,24 +284,50 @@ function setVolume() {
   const slider = document.getElementById("volume-slider");
   music.volume = parseFloat(slider.value);
 }
-function toggleFlagMode() {
-  flagMode = !flagMode;
-  const btn = document.getElementById("flag-mode-toggle");
-  btn.classList.toggle("active", flagMode);
-  vibrate(30);
-}
 
 // Globale Bindung für HTML-Buttons
 window.startGame = startGame;
-window.showDifficulty = showDifficulty;
-window.backToMain = backToMain;
-window.exitApp = exitApp;
-window.showHighscores = showHighscores;
-window.helpReveal = helpReveal;
-window.showSettings = showSettings;
+window.showDifficulty = () => {
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("difficulty-menu").style.display = "block";
+  document.getElementById("custom-settings").style.display = "none";
+};
+window.backToMain = () => {
+  clearInterval(timerInterval);
+  document.getElementById("game-container").style.display = "none";
+  document.getElementById("difficulty-menu").style.display = "none";
+  document.getElementById("highscore-menu").style.display = "none";
+  document.getElementById("settings-menu").style.display = "none";
+  document.getElementById("main-menu").style.display = "block";
+  document.getElementById("custom-settings").style.display = "none";
+};
+window.exitApp = () => {
+  const app = window.Capacitor?.Plugins?.App;
+  if (app) {
+    app.exitApp();
+  } else {
+    alert("Exit not supported in this environment.");
+  }
+};
+window.showHighscores = () => {
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("highscore-menu").style.display = "block";
+  renderHighscores();
+};
+window.showSettings = () => {
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("settings-menu").style.display = "block";
+  document.getElementById("vibration-setting").style.display = "block";
+};
 window.toggleMusic = toggleMusic;
 window.setVolume = setVolume;
-window.toggleVibrationSetting = toggleVibrationSetting;
+window.toggleVibrationSetting = () => {
+  const toggle = document.getElementById("vibration-toggle");
+  vibrationEnabled = toggle.checked;
+};
 window.toggleFlagMode = toggleFlagMode;
-window.showCustomSettings = showCustomSettings;
+window.showCustomSettings = () => {
+  document.getElementById("custom-settings").style.display = "block";
+};
+window.helpReveal = helpReveal;
 window.watchAd = watchAd;
