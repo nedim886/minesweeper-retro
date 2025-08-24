@@ -18,11 +18,17 @@ function showHighscores() {
   renderHighscores();
 }
 
+function showSettings() {
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("settings-menu").style.display = "block";
+}
+
 function backToMain() {
   clearInterval(timerInterval);
   document.getElementById("game-container").style.display = "none";
   document.getElementById("difficulty-menu").style.display = "none";
   document.getElementById("highscore-menu").style.display = "none";
+  document.getElementById("settings-menu").style.display = "none";
   document.getElementById("main-menu").style.display = "block";
 }
 
@@ -225,10 +231,23 @@ function renderHighscores() {
   });
 }
 
-// 🔗 Globale Bindung für HTML-Buttons
+function toggleMusic() {
+  const music = document.getElementById("bg-music");
+  const toggle = document.getElementById("music-toggle");
+  music.muted = !toggle.checked;
+}
+
+function setVolume() {
+  const music = document.getElementById("bg-music");
+  const slider = document.getElementById("volume-slider");
+  music.volume = parseFloat(slider.value);
+}
+
+// Globale Bindung für HTML-Buttons
 window.startGame = startGame;
 window.showDifficulty = showDifficulty;
 window.backToMain = backToMain;
 window.exitApp = exitApp;
 window.showHighscores = showHighscores;
 window.helpReveal = helpReveal;
+window.showSettings = show
