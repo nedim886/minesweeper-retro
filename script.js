@@ -48,6 +48,7 @@ function startGame(difficulty) {
     mineCount = 40;
   }
 
+  document.getElementById("bomb-count").textContent = `Bomben: ${mineCount}`;
   generateGrid();
 }
 
@@ -104,7 +105,7 @@ function generateGrid() {
         e.preventDefault();
         toggleFlag(x, y);
       };
-      document.getElementById("grid").appendChild(cell);
+      gridElement.appendChild(cell);
     }
   }
 
@@ -133,82 +134,4 @@ function revealCell(x, y) {
           let nx = x + dx;
           let ny = y + dy;
           if (
-            nx >= 0 && nx < gridSize &&
-            ny >= 0 && ny < gridSize &&
-            !revealed[ny][nx]
-          ) {
-            revealCell(nx, ny);
-          }
-        }
-      }
-    }
-    checkWin();
-  }
-}
-
-function toggleFlag(x, y) {
-  if (revealed[y][x]) return;
-  const index = y * gridSize + x;
-  const cell = document.getElementsByClassName("cell")[index];
-  flagged[y][x] = !flagged[y][x];
-  cell.textContent = flagged[y][x] ? "🚩" : "";
-}
-
-function checkWin() {
-  let safeCells = gridSize * gridSize - mineCount;
-  let revealedCount = revealed.flat().filter(Boolean).length;
-  if (revealedCount === safeCells) {
-    endGame(true);
-  }
-}
-
-function endGame(won) {
-  gameOver = true;
-  clearInterval(timerInterval);
-  if (won) {
-    const key = `highscore_${currentDifficulty}`;
-    const timestamp = new Date().toLocaleString();
-    const existing = JSON.parse(localStorage.getItem(key));
-    if (!existing || seconds < existing.time) {
-      localStorage.setItem(key, JSON.stringify({ time: seconds, date: timestamp }));
-    }
-    updateHighscoreDisplay();
-    alert("🎉 Du hast gewonnen!");
-  } else {
-    alert("💥 Game Over!");
-  }
-}
-
-function updateHighscoreDisplay() {
-  const key = `highscore_${currentDifficulty}`;
-  const data = JSON.parse(localStorage.getItem(key));
-  const display = document.getElementById("highscore");
-  if (data) {
-    display.textContent = `Highscore: ${data.time}s`;
-  } else {
-    display.textContent = `Highscore: –`;
-  }
-}
-
-function renderHighscores() {
-  const container = document.getElementById("highscore-list");
-  container.innerHTML = "";
-
-  ["easy", "medium", "hard"].forEach(level => {
-    const data = JSON.parse(localStorage.getItem(`highscore_${level}`));
-    const entry = document.createElement("div");
-    if (data) {
-      entry.textContent = `${level.toUpperCase()}: ${data.time}s (am ${data.date})`;
-    } else {
-      entry.textContent = `${level.toUpperCase()}: –`;
-    }
-    container.appendChild(entry);
-  });
-}
-
-// Globale Bindung für Buttons
-window.startGame = startGame;
-window.showDifficulty = showDifficulty;
-window.backToMain = backToMain;
-window.exitApp = exitApp;
-window.showHighscores = showHighscores;
+            nx >= 0 &&
