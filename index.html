@@ -23,6 +23,25 @@
     <button onclick="startGame('easy')">Easy</button>
     <button onclick="startGame('medium')">Medium</button>
     <button onclick="startGame('hard')">Hard</button>
+    <button onclick="startGame('extreme')">Extreme</button>
+    <button onclick="showCustomSettings()">Custom</button>
+
+    <!-- 🧮 Custom Mode Eingabe -->
+    <div id="custom-settings" style="display:none; margin-top:10px;">
+      <label>
+        Grid Size:
+        <input type="number" id="custom-size" min="4" max="30" value="10" />
+      </label>
+      <br />
+      <label>
+        Mines:
+        <input type="number" id="custom-mines" min="1" value="15" />
+      </label>
+      <br />
+      <button onclick="startGame('custom')">Start Custom Game</button>
+    </div>
+
+    <br />
     <button onclick="backToMain()">Back</button>
   </div>
 
@@ -47,11 +66,11 @@
     </label>
     <br />
 
-    <!-- ✅ Vibration-Toggle -->
+    <!-- ✅ Vibration-Toggle (Englisch) -->
     <div id="vibration-setting">
       <label>
         <input type="checkbox" id="vibration-toggle" checked onchange="toggleVibrationSetting()" />
-        Vibration aktivieren
+        Enable vibration
       </label>
     </div>
 
