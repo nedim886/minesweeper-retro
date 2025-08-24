@@ -138,7 +138,7 @@ function enableTouchFlagging(cell, x, y) {
 
   const startHandler = (e) => {
     touchMoved = false;
-    e.preventDefault();
+    e.preventDefault(); // verhindert Scrollen
     touchTimer = setTimeout(() => {
       toggleFlag(x, y);
       touchTimer = null;
@@ -153,7 +153,7 @@ function enableTouchFlagging(cell, x, y) {
   const endHandler = (e) => {
     clearTimeout(touchTimer);
     if (!touchMoved && touchTimer !== null) {
-      revealCell(x, y);
+      revealCell(x, y); // kurzer Tap = Zelle aufdecken
     }
   };
 
@@ -161,6 +161,8 @@ function enableTouchFlagging(cell, x, y) {
   cell.addEventListener("touchmove", moveHandler, { passive: false });
   cell.addEventListener("touchend", endHandler, { passive: false });
   cell.addEventListener("touchcancel", () => clearTimeout(touchTimer));
+}
+
 }
 
 function revealCell(x, y) {
