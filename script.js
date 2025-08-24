@@ -124,8 +124,10 @@ function revealCell(x, y) {
     cell.style.backgroundColor = "red";
     endGame(false);
   } else {
-    cell.textContent = grid[y][x] === 0 ? "" : grid[y][x];
-    if (grid[y][x] === 0) {
+    const value = grid[y][x];
+    cell.textContent = value === 0 ? "" : value;
+    cell.setAttribute("data-value", value);
+    if (value === 0) {
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
           let nx = x + dx;
@@ -204,7 +206,7 @@ function renderHighscores() {
   });
 }
 
-// 🔗 Globale Funktionen für HTML-Buttons
+// Globale Bindung für Buttons
 window.startGame = startGame;
 window.showDifficulty = showDifficulty;
 window.backToMain = backToMain;
