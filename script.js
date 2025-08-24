@@ -9,7 +9,7 @@ let currentDifficulty = "";
 let vibrationEnabled = true;
 let flagMode = false;
 
-// 🎵 Musiksteuerung
+// Musiksteuerung
 document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   if (music) music.volume = 0.3;
@@ -23,8 +23,8 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 function vibrate(pattern) {
-  if (!vibrationEnabled || !window.Capacitor?.Plugins?.Haptics) return;
-  const haptics = window.Capacitor.Plugins.Haptics;
+  const haptics = window.Capacitor?.Plugins?.Haptics;
+  if (!vibrationEnabled || !haptics) return;
 
   if (typeof pattern === "number") {
     haptics.vibrate({ duration: pattern });
@@ -43,8 +43,8 @@ function toggleVibrationSetting() {
 function toggleFlagMode() {
   flagMode = !flagMode;
   const btn = document.getElementById("flag-mode-toggle");
-  btn.textContent = flagMode ? "🚩 Flag Mode: ON" : "🚩 Flag Mode: OFF";
   btn.classList.toggle("active", flagMode);
+  vibrate(30);
 }
 
 function showDifficulty() {
@@ -152,6 +152,7 @@ function generateGrid() {
       cell.dataset.y = y;
 
       cell.onclick = () => {
+        if (gameOver) return;
         if (flagMode) {
           toggleFlag(x, y);
         } else {
@@ -164,44 +165,11 @@ function generateGrid() {
         toggleFlag(x, y);
       };
 
-      enableTouchFlagging(cell, x, y);
       gridElement.appendChild(cell);
     }
   }
 
   updateHighscoreDisplay();
-}
-
-function enableTouchFlagging(cell, x, y) {
-  let touchTimer;
-  let touchMoved = false;
-
-  const startHandler = (e) => {
-    touchMoved = false;
-    e.preventDefault();
-    touchTimer = setTimeout(() => {
-      toggleFlag(x, y);
-      vibrate(50);
-      touchTimer = null;
-    }, 500);
-  };
-
-  const moveHandler = () => {
-    touchMoved = true;
-    clearTimeout(touchTimer);
-  };
-
-  const endHandler = (e) => {
-    clearTimeout(touchTimer);
-    if (!touchMoved && touchTimer !== null) {
-      revealCell(x, y);
-    }
-  };
-
-  cell.addEventListener("touchstart", startHandler, { passive: false });
-  cell.addEventListener("touchmove", moveHandler, { passive: false });
-  cell.addEventListener("touchend", endHandler, { passive: false });
-  cell.addEventListener("touchcancel", () => clearTimeout(touchTimer));
 }
 function revealCell(x, y) {
   if (gameOver || revealed[y][x] || flagged[y][x]) return;
@@ -324,7 +292,7 @@ function renderHighscores() {
   });
 }
 
-// 🎛 Musiksteuerung
+// Musiksteuerung
 function toggleMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
@@ -337,7 +305,7 @@ function setVolume() {
   music.volume = parseFloat(slider.value);
 }
 
-// 🌐 Globale Bindung für HTML-Buttons
+// Globale Bindung für HTML-Buttons
 window.startGame = startGame;
 window.showDifficulty = showDifficulty;
 window.backToMain = backToMain;
