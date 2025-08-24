@@ -1,3 +1,4 @@
+/* Grundlayout */
 body {
   background-color: #111;
   color: #0f0;
@@ -7,6 +8,7 @@ body {
   padding: 20px;
 }
 
+/* Buttons im Menü */
 button {
   background-color: #000;
   color: #0f0;
@@ -15,14 +17,29 @@ button {
   margin: 5px;
   font-size: 16px;
   cursor: pointer;
+  font-family: monospace;
 }
 
+button:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+/* HUD oben im Spiel */
+#hud {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Spielfeld-Grid */
 #grid {
   display: grid;
   margin-top: 20px;
   justify-content: center;
+  gap: 2px;
 }
 
+/* Einzelne Zellen */
 .cell {
   width: 30px;
   height: 30px;
@@ -33,4 +50,38 @@ button {
   font-size: 18px;
   cursor: pointer;
   user-select: none;
+  background-color: #000;
+  color: #0f0;
+}
+
+/* Aufgedeckte Zellen */
+.revealed {
+  background-color: #0f0;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Minen-Zellen */
+.cell.mine {
+  background-color: red;
+  color: white;
+}
+
+/* Highscore-Menü */
+#highscore-menu {
+  margin-top: 20px;
+}
+
+#highscore-list {
+  margin: 10px auto;
+  max-width: 300px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Überschriften */
+h1, h2 {
+  color: #0f0;
+  font-family: monospace;
 }
