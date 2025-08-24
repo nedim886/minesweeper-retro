@@ -60,7 +60,6 @@ button:hover {
   font-weight: bold;
 }
 
-/* Farbige Zahlen */
 .cell[data-value="1"] { color: blue; }
 .cell[data-value="2"] { color: green; }
 .cell[data-value="3"] { color: red; }
@@ -69,6 +68,11 @@ button:hover {
 .cell[data-value="6"] { color: teal; }
 .cell[data-value="7"] { color: purple; }
 .cell[data-value="8"] { color: gray; }
+
+.cell.help-marked {
+  color: orange;
+  font-weight: bold;
+}
 
 #highscore-menu {
   margin-top: 20px;
