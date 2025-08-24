@@ -107,14 +107,16 @@ function generateGrid() {
       gridElement.appendChild(cell);
     }
   }
+
+  updateHighscoreDisplay();
 }
 
 function revealCell(x, y) {
   if (gameOver || revealed[y][x] || flagged[y][x]) return;
 
+  revealed[y][x] = true;
   const index = y * gridSize + x;
   const cell = document.getElementsByClassName("cell")[index];
-  revealed[y][x] = true;
 
   if (grid[y][x] === "💣") {
     cell.textContent = "💣";
@@ -162,6 +164,36 @@ function endGame(won) {
     if (!existing || seconds < existing.time) {
       localStorage.setItem(key, JSON.stringify({ time: seconds, date: timestamp }));
     }
-    const best = JSON.parse(localStorage.getItem(key));
-    document.getElementById("highscore").textContent = `Highscore: ${best.time}s`;
+    updateHighscoreDisplay();
     alert("🎉 Du hast gewonnen!");
+  } else {
+    alert("💥 Game Over!");
+  }
+}
+
+function updateHighscoreDisplay() {
+  const key = `highscore_${currentDifficulty}`;
+  const data = JSON.parse(localStorage.getItem(key));
+  const display = document.getElementById("highscore");
+  if (data) {
+    display.textContent = `Highscore: ${data.time}s`;
+  } else {
+    display.textContent = `Highscore: –`;
+  }
+}
+
+function renderHighscores() {
+  const container = document.getElementById("highscore-list");
+  container.innerHTML = "";
+
+  ["easy", "medium", "hard"].forEach(level => {
+    const data = JSON.parse(localStorage.getItem(`highscore_${level}`));
+    const entry = document.createElement("div");
+    if (data) {
+      entry.textContent = `${level.toUpperCase()}: ${data.time}s (am ${data.date})`;
+    } else {
+      entry.textContent = `${level.toUpperCase()}: –`;
+    }
+    container.appendChild(entry);
+  });
+}
