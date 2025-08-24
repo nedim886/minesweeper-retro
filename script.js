@@ -11,7 +11,6 @@ let flagMode = false;
 let coins = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Menüstruktur
   document.getElementById("main-menu").style.display = "block";
   document.getElementById("difficulty-menu").style.display = "none";
   document.getElementById("highscore-menu").style.display = "none";
@@ -19,11 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("game-container").style.display = "none";
   document.getElementById("custom-settings").style.display = "none";
 
-  // Musik
   const music = document.getElementById("bg-music");
   if (music) music.volume = 0.3;
 
-  // Coins initialisieren
   const savedCoins = localStorage.getItem("retro_coins");
   const lastClaim = localStorage.getItem("retro_last_claim");
 
@@ -180,6 +177,43 @@ function generateGrid() {
 
   updateHighscoreDisplay();
 }
+
+function revealCell(x, y) {
+  if (gameOver || revealed[y][x] || flagged[y][x]) return;
+
+  vibrate(50);
+
+  revealed[y][x] = true;
+  const index = y * gridSize + x;
+  const cell = document.getElementsByClassName("cell")[index];
+  cell.classList.add("revealed");
+
+  if (grid[y][x] === "💣") {
+    cell.textContent = "💣";
+    cell.style.backgroundColor = "red";
+    endGame(false);
+  } else {
+    const value = grid[y][x];
+    cell.textContent = value === 0 ? "" : value;
+    cell.setAttribute("data-value", value);
+    if (value === 0) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          let nx = x + dx;
+          let ny = y + dy;
+          if (
+            nx >= 0 && nx < gridSize &&
+            ny >= 0 && ny < gridSize &&
+            !revealed[ny][nx]
+          ) {
+            revealCell(nx, ny);
+          }
+        }
+      }
+    }
+    checkWin();
+  }
+}
 function helpReveal() {
   if (gameOver) return;
 
@@ -272,7 +306,6 @@ function renderHighscores() {
   });
 }
 
-// Musiksteuerung
 function toggleMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
@@ -284,14 +317,15 @@ function setVolume() {
   const slider = document.getElementById("volume-slider");
   music.volume = parseFloat(slider.value);
 }
-
 // Globale Bindung für HTML-Buttons
 window.startGame = startGame;
+
 window.showDifficulty = () => {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("difficulty-menu").style.display = "block";
   document.getElementById("custom-settings").style.display = "none";
 };
+
 window.backToMain = () => {
   clearInterval(timerInterval);
   document.getElementById("game-container").style.display = "none";
@@ -301,6 +335,7 @@ window.backToMain = () => {
   document.getElementById("main-menu").style.display = "block";
   document.getElementById("custom-settings").style.display = "none";
 };
+
 window.exitApp = () => {
   const app = window.Capacitor?.Plugins?.App;
   if (app) {
@@ -309,25 +344,32 @@ window.exitApp = () => {
     alert("Exit not supported in this environment.");
   }
 };
+
 window.showHighscores = () => {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("highscore-menu").style.display = "block";
   renderHighscores();
 };
+
 window.showSettings = () => {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("settings-menu").style.display = "block";
   document.getElementById("vibration-setting").style.display = "block";
 };
+
 window.toggleMusic = toggleMusic;
 window.setVolume = setVolume;
+
 window.toggleVibrationSetting = () => {
   const toggle = document.getElementById("vibration-toggle");
   vibrationEnabled = toggle.checked;
 };
+
 window.toggleFlagMode = toggleFlagMode;
+
 window.showCustomSettings = () => {
   document.getElementById("custom-settings").style.display = "block";
 };
+
 window.helpReveal = helpReveal;
 window.watchAd = watchAd;
