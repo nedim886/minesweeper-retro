@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Minesweeper Retro</title>
+  <title>RetroSweeper</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <audio id="bg-music" src="assets/music/loop.mp3" autoplay loop></audio>
 
+  <!-- 🕹️ Hauptmenü -->
   <div id="main-menu">
     <h1>RetroSweeper</h1>
     <button onclick="showDifficulty()">Play</button>
@@ -16,7 +17,8 @@
     <button onclick="exitApp()">Exit</button>
   </div>
 
-  <div id="difficulty-menu" style="display:none;">
+  <!-- 🎮 Schwierigkeitsauswahl -->
+  <div id="difficulty-menu">
     <h2>Select Difficulty</h2>
     <button onclick="startGame('easy')">Easy</button>
     <button onclick="startGame('medium')">Medium</button>
@@ -24,13 +26,15 @@
     <button onclick="backToMain()">Back</button>
   </div>
 
-  <div id="highscore-menu" style="display:none;">
+  <!-- 🏆 Highscore-Anzeige -->
+  <div id="highscore-menu">
     <h2>Highscores</h2>
     <div id="highscore-list"></div>
     <button onclick="backToMain()">Back</button>
   </div>
 
-  <div id="settings-menu" style="display:none;">
+  <!-- ⚙️ Einstellungen -->
+  <div id="settings-menu">
     <h2>🎛 Settings</h2>
     <label>
       <input type="checkbox" id="music-toggle" checked onchange="toggleMusic()" />
@@ -43,8 +47,8 @@
     </label>
     <br />
 
-    <!-- ✅ Vibration-Toggle für mobile Geräte -->
-    <div id="vibration-setting" style="display:none;">
+    <!-- ✅ Vibration-Toggle -->
+    <div id="vibration-setting">
       <label>
         <input type="checkbox" id="vibration-toggle" checked onchange="toggleVibrationSetting()" />
         Vibration aktivieren
@@ -55,18 +59,21 @@
     <button onclick="backToMain()">Back</button>
   </div>
 
-  <div id="game-container" style="display:none;">
+  <!-- 💣 Spielbereich -->
+  <div id="game-container">
     <div id="hud">
       <span id="timer">Time: 0s</span>
       <span id="highscore">Highscore: –</span>
       <span id="bomb-count">Bombs: –</span>
 
-      <!-- ✅ Flag-Modus-Button -->
-      <button id="flag-mode-toggle" onclick="toggleFlagMode()">🚩 Flag Mode: OFF</button>
+      <!-- 🚩 Flag-Modus -->
+      <button id="flag-mode-toggle" onclick="toggleFlagMode()">🚩</button>
+      <span id="flag-mode-indicator"></span>
 
       <button onclick="helpReveal()">HELP</button>
       <button onclick="backToMain()">Exit</button>
     </div>
+
     <div id="grid"></div>
   </div>
 
