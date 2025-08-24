@@ -7,6 +7,7 @@ let timerInterval;
 let seconds = 0;
 let currentDifficulty = "";
 
+// 🎵 Musiksteuerung
 document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   if (music) music.volume = 0.3;
@@ -243,7 +244,7 @@ function renderHighscores() {
   });
 }
 
-// Music Settings
+// 🎛 Settings-Funktionen
 function toggleMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
@@ -253,4 +254,16 @@ function toggleMusic() {
 function setVolume() {
   const music = document.getElementById("bg-music");
   const slider = document.getElementById("volume-slider");
-  music
+  music.volume = parseFloat(slider.value);
+}
+
+// 🌐 Globale Bindung für HTML-Buttons
+window.startGame = startGame;
+window.showDifficulty = showDifficulty;
+window.backToMain = backToMain;
+window.exitApp = exitApp;
+window.showHighscores = showHighscores;
+window.helpReveal = helpReveal;
+window.showSettings = showSettings;
+window.toggleMusic = toggleMusic;
+window.setVolume = setVolume;
