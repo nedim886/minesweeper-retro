@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Nur Hauptmenü anzeigen
   document.getElementById("main-menu").style.display = "block";
   document.getElementById("difficulty-menu").style.display = "none";
   document.getElementById("highscore-menu").style.display = "none";
   document.getElementById("settings-menu").style.display = "none";
   document.getElementById("game-container").style.display = "none";
+  document.getElementById("custom-settings").style.display = "none";
 });
 
 let gridSize, mineCount;
@@ -18,7 +18,6 @@ let currentDifficulty = "";
 let vibrationEnabled = true;
 let flagMode = false;
 
-// Musiksteuerung
 document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   if (music) music.volume = 0.3;
@@ -59,6 +58,11 @@ function toggleFlagMode() {
 function showDifficulty() {
   document.getElementById("main-menu").style.display = "none";
   document.getElementById("difficulty-menu").style.display = "block";
+  document.getElementById("custom-settings").style.display = "none";
+}
+
+function showCustomSettings() {
+  document.getElementById("custom-settings").style.display = "block";
 }
 
 function showHighscores() {
@@ -80,6 +84,7 @@ function backToMain() {
   document.getElementById("highscore-menu").style.display = "none";
   document.getElementById("settings-menu").style.display = "none";
   document.getElementById("main-menu").style.display = "block";
+  document.getElementById("custom-settings").style.display = "none";
 }
 
 function exitApp() {
@@ -90,27 +95,45 @@ function exitApp() {
     alert("Exit not supported in this environment.");
   }
 }
+
 function startGame(difficulty) {
   currentDifficulty = difficulty;
   document.getElementById("difficulty-menu").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
-  startTimer();
 
-  if (difficulty === "easy") {
+  if (difficulty === "custom") {
+    const sizeInput = document.getElementById("custom-size");
+    const mineInput = document.getElementById("custom-mines");
+
+    const size = parseInt(sizeInput.value);
+    const mines = parseInt(mineInput.value);
+
+    if (isNaN(size) || isNaN(mines) || size < 4 || size > 30 || mines < 1 || mines >= size * size) {
+      alert("Please enter valid values for grid size (4–30) and mines.");
+      document.getElementById("difficulty-menu").style.display = "block";
+      return;
+    }
+
+    gridSize = size;
+    mineCount = mines;
+  } else if (difficulty === "easy") {
     gridSize = 8;
     mineCount = 10;
   } else if (difficulty === "medium") {
     gridSize = 12;
     mineCount = 20;
-  } else {
+  } else if (difficulty === "hard") {
     gridSize = 16;
     mineCount = 40;
+  } else if (difficulty === "extreme") {
+    gridSize = 20;
+    mineCount = 99;
   }
 
+  document.getElementById("game-container").style.display = "block";
   document.getElementById("bomb-count").textContent = `Bombs: ${mineCount}`;
+  startTimer();
   generateGrid();
 }
-
 function startTimer() {
   seconds = 0;
   document.getElementById("timer").textContent = "Time: 0s";
@@ -180,6 +203,7 @@ function generateGrid() {
 
   updateHighscoreDisplay();
 }
+
 function revealCell(x, y) {
   if (gameOver || revealed[y][x] || flagged[y][x]) return;
 
@@ -243,7 +267,6 @@ function helpReveal() {
     }
   }
 }
-
 function checkWin() {
   let safeCells = gridSize * gridSize - mineCount;
   let revealedCount = revealed.flat().filter(Boolean).length;
@@ -289,7 +312,7 @@ function renderHighscores() {
   const container = document.getElementById("highscore-list");
   container.innerHTML = "";
 
-  ["easy", "medium", "hard"].forEach(level => {
+  ["easy", "medium", "hard", "extreme", "custom"].forEach(level => {
     const data = JSON.parse(localStorage.getItem(`highscore_${level}`));
     const entry = document.createElement("div");
     if (data) {
@@ -326,3 +349,4 @@ window.toggleMusic = toggleMusic;
 window.setVolume = setVolume;
 window.toggleVibrationSetting = toggleVibrationSetting;
 window.toggleFlagMode = toggleFlagMode;
+window.showCustomSettings = showCustomSettings;
